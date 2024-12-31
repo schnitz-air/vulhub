@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log4j-app
+  labels:
+    app: log4j-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: log4j-app
+  template:
+    metadata:
+      labels:
+        app: log4j-app
+    spec:
+      containers:
+      - name: log4j
+        image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}
+        ports:
+        - containerPort: 4712
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: log4j-service
+spec:
+  selector:
+    app: log4j-app
+  ports:
+    - protocol: TCP
+      port: 4712
+      targetPort: 4712
+  type: LoadBalancer

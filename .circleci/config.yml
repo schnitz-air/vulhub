@@ -7,6 +7,10 @@ orbs:
 
 jobs:
   build-and-push:
+    parameters:
+      dockerfile:
+        type: string
+        default: "Dockerfile"
     docker:
       - image: cimg/base:stable
     steps:
@@ -17,6 +21,7 @@ jobs:
           repo: ${ECR_REPOSITORY_NAME}
           region: ${AWS_REGION}
           tag: ${CIRCLE_SHA1}
+          dockerfile: << parameters.dockerfile >>
 
   deploy-to-eks:
     docker:
@@ -34,7 +39,22 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build-and-push
+      - build-and-push:
+          name: build-log4j
+          dockerfile: "log4j/CVE-2017-5645/Dockerfile"
+          filters:
+            branches:
+              only: main
+            paths:
+              - 'log4j/**'
+              - '.circleci/**'
       - deploy-to-eks:
           requires:
-            - build-and-push
+            - build-log4j
+          filters:
+            branches:
+              only: main
+            paths:
+              - 'log4j/**'
+              - '.circleci/**'
+              - 'k8s-deployment.yml'
