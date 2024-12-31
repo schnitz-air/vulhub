@@ -26,8 +26,8 @@ jobs:
       - run:
           name: run some commands
           command: |
-            kubectl get svc 
             ls -la 
+            kubectl get svc 
   build-and-push:
     working_directory: ~/app
     docker:
