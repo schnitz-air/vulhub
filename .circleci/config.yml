@@ -54,7 +54,3 @@ workflows:
           filters:
             branches:
               only: main
-            paths:
-              - 'log4j/**'
-              - '.circleci/**'
-              - 'k8s-deployment.yml'
