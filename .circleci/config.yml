@@ -41,7 +41,7 @@ jobs:
           cluster-name: my_cluster
           aws-region: us-west-2
       - kubernetes/create-or-update-resource:
-          resource-file: k8s-deployment.yml
+          resource-file-path: k8s-deployment.yml
           resource-name: deployment/your-app-name
 
 workflows:
