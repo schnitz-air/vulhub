@@ -33,8 +33,7 @@ jobs:
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           resource-file: k8s-deployment.yml
-          resource-name: deployment/node-app
-
+          resource-name: deployment/log4j-app
 workflows:
   version: 2
   build-and-deploy:
