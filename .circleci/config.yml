@@ -18,7 +18,9 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd /base/log4j/2.8.1/
+            pwd
+            ls -la
+            cd ./base/log4j/2.8.1/
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t $DOCKERHUB_USERNAME/circleci-vulhub:$TAG .
       - run:
