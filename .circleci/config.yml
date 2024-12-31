@@ -44,4 +44,4 @@ workflows:
           dockerfile: "log4j/CVE-2017-5645/Dockerfile"
           filters:
             branches:
-              only: main
+              only: master
