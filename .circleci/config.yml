@@ -45,9 +45,6 @@ workflows:
           filters:
             branches:
               only: main
-            paths:
-              - 'log4j/**'
-              - '.circleci/**'
       - deploy-to-eks:
           requires:
             - build-log4j
